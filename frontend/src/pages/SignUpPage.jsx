@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {ShipWheelIcon} from "lucide-react";
 import { Link } from "react-router";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { axiosInstance } from '../lib/axios';
+import { signup } from '../lib/api';
 
 function SingUpPage() {
 
@@ -14,17 +14,14 @@ function SingUpPage() {
 
   const queryClient = useQueryClient();
 
-  const { mutate, isPending, error } = useMutation({
-    mutationFn: async () => {
-      const response = await axiosInstance.post("/auth/signup", signupData);
-      return response.data;
-    },
+  const { mutate: signupMutation, isPending, error } = useMutation({
+    mutationFn: signup,
     onSuccess: () => queryClient.invalidateQueries({queryKey: ["authUser"]})
   })
 
   const handleSignup = (e) => {
     e.preventDefault();
-    mutate();
+    signupMutation(signupData); //this will pass signupData as argument to mutationFn
   }
 
   
@@ -41,6 +38,14 @@ function SingUpPage() {
                 Streamify
               </span>
             </div>
+
+            {error && (
+              <div className='mb-4 alert-error'>
+                <span>
+                  error.response.data.message
+                </span>
+              </div>
+            )}
             
             <div className='w-full'>
               <form onSubmit={handleSignup}>
