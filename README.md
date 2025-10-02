@@ -20,10 +20,10 @@ Highlights:
 ### Backend (`/backend`)
 
 ```
-PORT=5001
+PORT=5000
 MONGO_URI=your_mongo_uri
-STEAM_API_KEY=your_steam_api_key
-STEAM_API_SECRET=your_steam_api_secret
+STrEAM_API_KEY=your_steam_api_key
+STrEAM_API_SECRET=your_steam_api_secret
 JWT_SECRET_KEY=your_jwt_secret
 NODE_ENV=development
 ```
